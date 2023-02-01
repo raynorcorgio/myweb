@@ -1,5 +1,11 @@
 <script>
 	import { page } from '$app/stores';
+	import { fade } from 'svelte/transition';
+	let show = true;
+
+	function toggle() {
+		show = !show;
+	}
 
 	const navs = [
 		{ name: 'Home', href: '/' },
@@ -15,6 +21,7 @@
 				<!-- Mobile menu button -->
 				<button
 					type="button"
+					on:click={toggle}
 					class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
 					aria-controls="mobile-menu"
 					aria-expanded="false"
@@ -96,29 +103,22 @@
 	</div>
 
 	<!-- Mobile menu, show/hide based on menu state. -->
-	<div class="sm:hidden" id="mobile-menu">
-		<div class="space-y-1 pt-2 pb-4">
-			<!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
-			<a
-				href="#"
-				class="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700"
-				>Dashboard</a
-			>
-			<a
-				href="#"
-				class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-				>Team</a
-			>
-			<a
-				href="#"
-				class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-				>Projects</a
-			>
-			<a
-				href="#"
-				class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700"
-				>Calendar</a
-			>
+	{#if !show}
+		<div class="sm:hidden" id="mobile-menu">
+			<div class="space-y-1 pt-2 pb-4">
+				<!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" -->
+
+				{#each navs as nav}
+					<a
+						href={nav.href}
+						class="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium {nav.href ===
+						$page.path
+							? 'bg-indigo-50 border-indigo-500 text-indigo-700'
+							: 'border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700'}"
+						>{nav.name}</a
+					>
+				{/each}
+			</div>
 		</div>
-	</div>
+	{/if}
 </nav>
