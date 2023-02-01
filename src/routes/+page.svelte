@@ -1,13 +1,10 @@
 <script>
 	import { base } from '$app/paths';
-	import NavBar from './NavBar.svelte';
 </script>
 
 <svelte:head>
 	<title>Home</title>
 </svelte:head>
-
-<NavBar />
 
 <h1 class="text-3xl font-bold text-purple-600">
 	Hello sveltekit + tailwindcss deployed using github pages!

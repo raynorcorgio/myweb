@@ -1,11 +1,11 @@
 <script>
-	import NavBar from '../NavBar.svelte';
+	import { base } from '$app/paths';
 </script>
 
 <svelte:head>
 	<title>About</title>
 </svelte:head>
-
-<NavBar />
 <h1>About</h1>
 <p>Reload this page</p>
+
+<a href="{base}/" class="text-blue-600 underline">Back to home!</a>
